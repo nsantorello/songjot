@@ -1,5 +1,6 @@
 Songjot::Application.routes.draw do
   root :to => 'awesome#index'
+  match '/test' => 'awesome#test'
   #resources :playlists
 
   #resources :songs
