@@ -1,5 +1,5 @@
 scheduler = Rufus::Scheduler.start_new
 
-scheduler.every("61m") do
+scheduler.every("10m") do
    UpdateController.periodic_update
 end
