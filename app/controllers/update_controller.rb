@@ -59,7 +59,7 @@ class UpdateController < ApplicationController
         end
       
         # If the video is not already in today's playlist
-        if Song.where(:yt_id => video_id).where(:playlist_id => playlist.id).first == nil
+        if !Song.where(:yt_id => video_id).any?{|a|a.id == playlist_id}
           # Add it!
           song = Song.create ({:yt_id => video_id, :playlist_id => playlist.id})
           str = '<?xml version="1.0" encoding="UTF-8"?>
