@@ -52,14 +52,14 @@ class UpdateController < ApplicationController
           if playlistrgx != nil
             playlist_id = playlistrgx[1]
             playlist = Playlist.create({:name => postdate, :yt_id => playlist_id})
-            playlist.save
+            playlist.save!
           end
         else
           playlist_id = playlist.yt_id
         end
       
         # If the video is not already in today's playlist
-        if !Song.where(:yt_id => video_id).any?{|a|a.playlist_id == playlist.id}
+        if Song.where(:yt_id => video_id).none?{|a|a.playlist_id == playlist.id}
           # Add it!
           song = Song.create ({:yt_id => video_id, :playlist_id => playlist.id})
           str = '<?xml version="1.0" encoding="UTF-8"?>
@@ -69,7 +69,7 @@ class UpdateController < ApplicationController
           </entry>'
 
           result = client.post("https://gdata.youtube.com/feeds/api/playlists/#{playlist_id}?key=#{api_secret}", str)
-          playlist.save
+          playlist.save!
         end
       end
     end
