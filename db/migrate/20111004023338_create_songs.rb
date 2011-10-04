@@ -1,11 +1,11 @@
 class CreateSongs < ActiveRecord::Migration
   def self.up
     create_table :songs do |t|
+      t.integer :playlist_id
       t.string :name
       t.string :yt_url
       t.string :contributor
       t.string :yt_id
-      t.integer :playlist_id
 
       t.timestamps
     end
