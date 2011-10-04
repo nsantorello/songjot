@@ -5,7 +5,7 @@ class CreateSongs < ActiveRecord::Migration
       t.string :yt_url
       t.string :contributor
       t.string :yt_id
-      t.int :playlist_id
+      t.integer :playlist_id
 
       t.timestamps
     end
