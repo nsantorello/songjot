@@ -16,36 +16,10 @@ class UpdateController < ApplicationController
     client.clientlogin('songjot@gmail.com', 'fratu8U-etr-gEy#')
     api_secret = "AI39si4nqETTEDv3fAxfIWzgkDW2jVn3S3I0eGf9ka3Urbfc5lgBpAHOih6w1ixUF_5LnA1hkIKvPasCmLyhmM9Ly2teehWLCA"
   
-    # Get today's date as YYYY-MM-DD
-    today = Date.today.to_s
-  
-    # Does playlist already exist?  If not, create it in DB and on YouTube
-    playlist = Playlist.where(:name => today).first
-    playlist_id = ''
-    if playlist == nil
-      # Create playlist on YouTube and in DB since it doesn't exist
-      playlist_title = playlist_prefix + today + playlist_suffix
-      str = '<?xml version="1.0" encoding="UTF-8"?>
-      <entry xmlns="http://www.w3.org/2005/Atom" 
-      xmlns:yt="http://gdata.youtube.com/schemas/2007">        
-        <title type="text">' + playlist_title + '</title>
-        <summary>An aggregate of YouTube songs posted to the "song of the day" subject on subjot.com</summary>
-      </entry>'
-      result = client.post("https://gdata.youtube.com/feeds/api/users/default/playlists?key=#{api_secret}", str)
-      playlistrgx = /<yt:playlistId>(.{16})<\/yt:playlistId>/.match(result.body)
-      if playlistrgx != nil
-        playlist_id = playlistrgx[1]
-        playlist = Playlist.create({:name => today, :yt_id => playlist_id})
-        playlist.save
-      end
-    else
-      playlist_id = playlist.yt_id
-    end
-  
     # Loop through each jot
     dict["jots"].each do |j|
       # Only grab jots that have "song of the day" as the subject
-      if j["subject"]["name"] == "song of the day" && Date.parse(j["created_at"]).to_s == today
+      if j["subject"]["name"] == "song of the day"
         # Get the ID of the linked YouTube video
         content = j["content"]
         surlrgx = /(youtu.be\/)(.{11})/.match content
@@ -57,6 +31,31 @@ class UpdateController < ApplicationController
           video_id = lurlrgx[2]
         else
           next
+        end
+        
+        postdate = Date.parse(j["created_at"]).to_s
+        
+        # Does playlist already exist?  If not, create it in DB and on YouTube
+        playlist = Playlist.where(:name => postdate).first
+        playlist_id = ''
+        if playlist == nil
+          # Create playlist on YouTube and in DB since it doesn't exist
+          playlist_title = playlist_prefix + postdate + playlist_suffix
+          str = '<?xml version="1.0" encoding="UTF-8"?>
+          <entry xmlns="http://www.w3.org/2005/Atom" 
+          xmlns:yt="http://gdata.youtube.com/schemas/2007">        
+            <title type="text">' + playlist_title + '</title>
+            <summary>An aggregate of YouTube songs posted to the "song of the day" subject on subjot.com</summary>
+          </entry>'
+          result = client.post("https://gdata.youtube.com/feeds/api/users/default/playlists?key=#{api_secret}", str)
+          playlistrgx = /<yt:playlistId>(.{16})<\/yt:playlistId>/.match(result.body)
+          if playlistrgx != nil
+            playlist_id = playlistrgx[1]
+            playlist = Playlist.create({:name => postdate, :yt_id => playlist_id})
+            playlist.save
+          end
+        else
+          playlist_id = playlist.yt_id
         end
       
         # If the video is not already in today's playlist
