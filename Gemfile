@@ -4,6 +4,7 @@ gem 'rails', '3.0.9'
 
 gem 'gdata'
 gem 'json'
+gem 'rufus-scheduler'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

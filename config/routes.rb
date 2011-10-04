@@ -1,7 +1,8 @@
 Songjot::Application.routes.draw do
-  resources :playlists
+  root :to => 'awesome#index'
+  #resources :playlists
 
-  resources :songs
+  #resources :songs
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -1,0 +1,20 @@
+<html>
+<head><title>Songjot</title></head>
+<div align="center">
+<body><h1>Songjot</h1>
+<h3><i>Continuously aggregated lists of YouTube songs from <a href="http://subjot.com">Subjot's</a> <a href="http://subjot.com/all/song+of+the+day">"song of the day"</a> subject.</i>
+	<br /><br />
+	<% lists = Playlist.limit(10000).order("created_at DESC") %>
+	<h1>Today's list: <a href="http://www.youtube.com/playlist?list=<%=lists.first.yt_id%>"><%=lists.first.name%></a></h1><br /><br /><br />
+	<% old_lists = lists.drop(1)
+	
+	old_lists.each do |list| %>
+		<a href="http://www.youtube.com/playlist?list=<%=list.yt_id%>"><%=list.name%></a><br />
+	<% end %>
+	
+	<br /><br /><br /><br />
+	This is a quickly hacked up project by Noah Santorello.  <a href="http://subjot.com/Noah">Say hi</a> if you like it!
+	
+	</div>
+	</body>
+	</html>

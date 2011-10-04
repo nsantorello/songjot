@@ -3,6 +3,7 @@ class CreatePlaylists < ActiveRecord::Migration
     create_table :playlists do |t|
       t.string :name
       t.string :yt_url
+      t.string :yt_id
 
       t.timestamps
     end
