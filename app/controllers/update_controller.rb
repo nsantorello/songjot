@@ -8,7 +8,7 @@ class UpdateController < ApplicationController
     playlist_suffix = ')'
     
     # Get latest jots
-    update = `curl "https://subjot.com/api/v1/jots/search.json?search=song%20of%20the%20day&oauth_token=U4yInU8gvY7WxGB6aONzeoC1tX7zQFdSP3udG4oi"`
+    update = `curl "https://subjot.com/api/v1/jots/public.json?subject=song%20of%20the%20day&oauth_token=U4yInU8gvY7WxGB6aONzeoC1tX7zQFdSP3udG4oi"`
     dict = JSON.parse(update)
   
     # Connect to YouTube
@@ -59,7 +59,7 @@ class UpdateController < ApplicationController
         end
       
         # If the video is not already in today's playlist
-        if !Song.where(:yt_id => video_id).any?{|a|a.id == playlist_id}
+        if !Song.where(:yt_id => video_id).any?{|a|a.playlist_id == playlist.id}
           # Add it!
           song = Song.create ({:yt_id => video_id, :playlist_id => playlist.id})
           str = '<?xml version="1.0" encoding="UTF-8"?>
