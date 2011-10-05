@@ -18,7 +18,7 @@
 	<% old_lists = lists.drop(1)
 	
 	old_lists.each do |list| %>
-		<a href="http://www.youtube.com/playlist?list=<%=list.yt_id%>"><%=list.name%></a><br />
+		<a href="http://www.youtube.com/playlist?list=<%=list.yt_id%>"><%=list.name%> (<%= list.songs.count %> songs)</a><br />
 	<% end %>
 	
 	<br /><br /><br /><br />
