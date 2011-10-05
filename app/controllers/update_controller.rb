@@ -31,7 +31,7 @@ class UpdateController < ApplicationController
       playlistrgx = /<yt:playlistId>(.{16})<\/yt:playlistId>/.match(result.body)
       if playlistrgx != nil
         playlist_id = playlistrgx[1]
-        playlist = Playlist.create({:name => postdate, :yt_id => playlist_id})
+        playlist = Playlist.create({:name => Date.today.to_s, :yt_id => playlist_id})
         playlist.save!
       end
     end
