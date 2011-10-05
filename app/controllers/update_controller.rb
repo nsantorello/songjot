@@ -17,7 +17,7 @@ class UpdateController < ApplicationController
     api_secret = "AI39si4nqETTEDv3fAxfIWzgkDW2jVn3S3I0eGf9ka3Urbfc5lgBpAHOih6w1ixUF_5LnA1hkIKvPasCmLyhmM9Ly2teehWLCA"
   
     # Create today's playlist just to be sure
-    playlist = Playlist.where(Date.today.to_s).first
+    playlist = Playlist.where(:name => Date.today.to_s).first
     if playlist == nil
       # Create playlist on YouTube and in DB since it doesn't exist
       playlist_title = playlist_prefix + postdate + playlist_suffix
