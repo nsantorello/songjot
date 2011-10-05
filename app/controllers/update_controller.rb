@@ -34,6 +34,7 @@ class UpdateController < ApplicationController
         playlist = Playlist.create({:name => postdate, :yt_id => playlist_id})
         playlist.save!
       end
+    end
   
     # Loop through each jot
     dict["jots"].each do |j|
