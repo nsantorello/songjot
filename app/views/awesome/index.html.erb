@@ -5,7 +5,16 @@
 <h3><i>Continuously aggregated lists of YouTube songs from <a href="http://subjot.com">Subjot's</a> <a href="http://subjot.com/all/song+of+the+day">"song of the day"</a> subject.</i>
 	<br /><br />
 	<% lists = Playlist.limit(10000).sort_by { |p| p.name }.reverse %>
-	<h1>Today's list: <a href="http://www.youtube.com/playlist?list=<%=lists.first.yt_id%>"><%=lists.first.name%></a></h1><br /><br /><br />
+	<h1>Today's songs:</h1><br />
+	<object height="385" width="480">
+	      <param name="movie" value="http://www.youtube.com/p/<%= lists.first.yt_id %>?version=3&hl=en_US&fs=1">
+	</param>
+	<param name="allowFullScreen" value="true">
+	</param>
+	<param name="allowscriptaccess" value="always">
+	</param>
+	<embed src="http://www.youtube.com/p/<%= lists.first.yt_id %>?version=3&hl=en_US&fs=1" type="application/x-shockwave-flash" width="480" height="385" allowscriptaccess="always" allowfullscreen="true"></embed>
+	    </object>
 	<% old_lists = lists.drop(1)
 	
 	old_lists.each do |list| %>
