@@ -18,6 +18,7 @@ class UpdateController < ApplicationController
   
     # Create today's playlist just to be sure
     playlist = Playlist.where(:name => Date.today.to_s).first
+    postdate = Date.today.to_s
     if playlist == nil
       # Create playlist on YouTube and in DB since it doesn't exist
       playlist_title = playlist_prefix + postdate + playlist_suffix
@@ -31,7 +32,7 @@ class UpdateController < ApplicationController
       playlistrgx = /<yt:playlistId>(.{16})<\/yt:playlistId>/.match(result.body)
       if playlistrgx != nil
         playlist_id = playlistrgx[1]
-        playlist = Playlist.create({:name => Date.today.to_s, :yt_id => playlist_id})
+        playlist = Playlist.create({:name => postdate, :yt_id => playlist_id})
         playlist.save!
       end
     end
