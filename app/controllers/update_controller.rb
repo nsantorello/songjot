@@ -1,11 +1,16 @@
 require 'gdata'
 require 'json'
 require 'date'
+require 'bitly'
 
 class UpdateController < ApplicationController
   def UpdateController::periodic_update
     playlist_prefix = 'Subjot Song of the Day ('
     playlist_suffix = ')'
+    
+    # Create bitly link for sjot'ed urls
+    Bitly.use_api_version_3
+    bitly = Bitly.new('nsantorello', 'R_1a8ae61512f06a04c8794075437890ed')
     
     # Get latest jots
     update = `curl "https://subjot.com/api/v1/jots/public.json?subject=song%20of%20the%20day&oauth_token=U4yInU8gvY7WxGB6aONzeoC1tX7zQFdSP3udG4oi"`
@@ -43,9 +48,19 @@ class UpdateController < ApplicationController
       if j["subject"]["name"] == "song of the day"
         # Get the ID of the linked YouTube video
         content = j["content"]
+        sjotrgx = /(http:\/\/sjot.it\/\w{6})/.match content
+        
+        # Expand sjot.it urls
+        if sjotrgx != nil
+          sjoturl = sjotrgx[1]
+          content = bitly.expand(sjoturl).long_url
+        end
+        
+        
         surlrgx = /(youtu.be\/)(.{11})/.match content
         lurlrgx = /(youtube.com\/watch\?v=)(.{11})/.match content
         video_id = ''
+        
         if surlrgx != nil
           video_id = surlrgx[2]
         elsif lurlrgx != nil
