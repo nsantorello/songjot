@@ -383,7 +383,7 @@ a.rotate(null)}:function(){t=c.selected;h()});if(b){this.element.bind("tabsshow"
 	$fsPrev,
 	$fsPlay,
 	$fsNext,
-	$fsMax,
+	//$fsMax,
 	
 	// Current image & window
 	$image,
@@ -558,7 +558,7 @@ a.rotate(null)}:function(){t=c.selected;h()});if(b){this.element.bind("tabsshow"
 		// Save the current body overflow value
 		bodyOverflow = $('body').css('overflow');
 		
-		$fsMax.click(function (e) {
+		/*$fsMax.click(function (e) {
 			e.preventDefault();
 			$('body').css('overflow', 'hidden');			
 			$('div.outside').fadeOut(settings.minimiseSpeedOut).hide(0, function () {
@@ -574,7 +574,7 @@ a.rotate(null)}:function(){t=c.selected;h()});if(b){this.element.bind("tabsshow"
 				});
 			});
 			$window.resize();
-		});
+		});*/
 		
 		$window.resize(windowResize);
 		
