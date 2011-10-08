@@ -460,8 +460,7 @@ a.rotate(null)}:function(){t=c.selected;h()});if(b){this.element.bind("tabsshow"
 			$fsLoading = $('<div class="fs-loading"></div>'),
 			$fsPrev = $('<div class="fs-prev"></div>'),
 			$fsPlay = $('<div class="fs-play"></div>'),
-			$fsNext = $('<div class="fs-next"></div>'),
-			$fsMax = $('<div class="fs-max"></div>')
+			$fsNext = $('<div class="fs-next"></div>')
 		);
 				
 		// Put the controls on the page
