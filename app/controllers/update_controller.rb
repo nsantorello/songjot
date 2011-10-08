@@ -106,6 +106,7 @@ class UpdateController < ApplicationController
 
           result = client.post("https://gdata.youtube.com/feeds/api/playlists/#{playlist_id}?key=#{api_secret}", str)
           playlist.save!
+          puts "Added video with ID #{video_id}"
         end
       end
     end
