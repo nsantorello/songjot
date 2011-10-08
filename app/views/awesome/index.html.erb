@@ -1,29 +1,140 @@
-<html>
-<head><title>Songjot</title></head>
-<div align="center">
-<body><h1>Songjot</h1>
-<h3><i>Continuously aggregated lists of YouTube songs from <a href="http://subjot.com">Subjot's</a> <a href="http://subjot.com/all/song+of+the+day">"song of the day"</a> subject.</i>
-	<br /><br />
-	<% lists = Playlist.limit(10000).sort_by { |p| p.name }.reverse %>
-	<h1>Today's songs:</h1><br />
-	<object height="385" width="480">
-	      <param name="movie" value="http://www.youtube.com/p/<%= lists.first.yt_id %>?version=3&hl=en_US&fs=1">
-	</param>
-	<param name="allowFullScreen" value="true">
-	</param>
-	<param name="allowscriptaccess" value="always">
-	</param>
-	<embed src="http://www.youtube.com/p/<%= lists.first.yt_id %>?version=3&hl=en_US&fs=1" type="application/x-shockwave-flash" width="480" height="385" allowscriptaccess="always" allowfullscreen="true"></embed>
-	    </object><br /><br /><br />Older lists:<br />
-	<% old_lists = lists.drop(1)
-	
-	old_lists.each do |list| %>
-		<a href="http://www.youtube.com/playlist?list=<%=list.yt_id%>"><%=list.name%> (<%= list.songs.count %> songs)</a><br />
-	<% end %>
-	
-	<br /><br /><br /><br />
-	This is a quickly hacked up project by Noah Santorello.  <a href="http://subjot.com/Noah">Say hi</a> if you like it!
-	
-	</div>
-	</body>
-	</html>
+<div id="img-overlay-effects" class="none"></div>
+<!--Effects to go over your BG image (class= dots / stripe / square / none) -->
+
+<div id="nojs-background">
+    <img src="images/backgrounds/placeholder.jpg" alt="" /><!-- Non-JavaScript background -->
+</div>
+
+<!--Start Outside-->
+<div class="outside sky">
+<!--Add colour scheme (class = red / blue / green / orange / purple / sky / lime / gold-->
+
+
+  <!-- MAIN CONTENT AREA -->
+  <div class="content-outer clearfix" id="header-outer">
+    <div class="content-inner clearfix">
+
+    	<div class="content-header">
+
+          <!--Logo-->
+          <div class="logo" align="center">
+            <div class="logo-img">
+               <a href="./"><img src="images/logo.png" title="" alt="Songjot Logo" style="padding-top:5px" /></a>
+            </div>
+          </div>
+          <!--End Logo-->
+
+
+      </div>
+
+<% lists = Playlist.limit(10000).sort_by { |p| p.name }.reverse %>
+
+        <!--All Tabs-->
+<div class="tabs-wrapper clearfix">
+        	<div id="not-tabs">
+                   <h1 style="padding-top:15px;margin-top:0px;">Today's Playlist</h1>
+				   <div id="video">
+                   	<object height="385" width="480">
+					      <param name="movie" value="http://www.youtube.com/p/<%= lists.first.yt_id %>?version=3&hl=en_US&fs=1">
+					</param>
+					<param name="allowFullScreen" value="true">
+					</param>
+					<param name="allowscriptaccess" value="always">
+					</param>
+					<embed src="http://www.youtube.com/p/<%= lists.first.yt_id %>?version=3&hl=en_US&fs=1" type="application/x-shockwave-flash" width="480" height="385" allowscriptaccess="always" allowfullscreen="true"></embed>
+					    </object>
+                   </div><!-- /#video-->
+				</div><!--tabs ID-->
+        </div><!--tabs wrapper-->
+
+        <!-- CONTENT FOOTER - Add show-footer to body tag to show-->
+        <div class="content-footer">
+        	<ul class="social-list-small clearfix">
+               <li class="first"><a href="#"><img src="images/social-icons/mini/facebook.png" alt="facebook" /></a></li>
+               <li><a href="#"><img src="images/social-icons/mini/twitter.png" alt="twitter" /></a></li>
+               <li class="last"><a href="#"><img src="images/social-icons/mini/rss.png" alt="rss" /></a></li>
+            </ul>
+        </div>
+
+    </div>
+  </div>
+  <!-- END MAIN CONTENT AREA -->
+
+  <div id="footer"><!-- Footer -->
+    <div class="footer-inside clearfix">
+
+      <!--Footers Left Column-->
+      <div class="foot-left-col">
+
+          <ul class="footer-menu">
+                <li><a class="footer-pop-out-trigger" title="Show / Hide" id="pop-out-trigger-older" href="#"><span class="up-ico">Playlists</span></a></li>
+                <li><a class="footer-pop-out-trigger" title="Show / Hide" id="pop-out-trigger-radio" href="#"><span class="up-ico">Songjot Radio</span></a></li>
+                <li><a class="footer-pop-out-trigger" title="Show / Hide" id="pop-out-trigger-other" href="#"><span class="up-ico">About Songjot</span></a></li>
+            </ul>
+
+            <!--Hidden pop out boxes - Older playlists-->
+            <div id="older-pop-out" class="footer-pop-out-box older-pop-out-box">
+                <div class="clearfix" style="font-family:'Abel'">
+                    <h2>PLAYLISTS</h2>
+<div class="footer-pop-out-box-content clearfix">
+					<ul style="font-size:10pt">
+						<li><a href="#">Today - <%= pluralize(lists.first.songs.count, "song")%></a> <a href="http://www.youtube.com/playlist?list=<%=lists.first.yt_id%>">(yt)</a></li>
+						<% old_lists = lists.drop(1).first(7)
+						old_lists.each do |list| %>
+							<li><%= Date.parse(list.name).strftime("%a %b %d %Y") %> - <%= pluralize(list.songs.count, "song")%> <a href="http://www.youtube.com/playlist?list=<%=list.yt_id%>">(yt)</a></li>
+						<% end %>
+						<li><a href="http://www.youtube.com/user/songjot#g/p">See all lists</a></li>
+					</ul>
+					</div>
+                 </div>
+            </div>
+
+			<!--Hidden pop out boxes - Older playlists-->
+            <div id="radio-pop-out" class="footer-pop-out-box radio-pop-out-box">
+                <div class="clearfix" style="font-family:'Abel'">
+                    <h2>SONGJOT RADIO</h2>
+<div class="footer-pop-out-box-content clearfix">
+					<ul>
+						<li><a href="#">Play the last 200 songs</a> <a href="#">(yt)</a></li>
+					</ul>
+					</div>
+                 </div>
+            </div>
+
+            
+            <!--Hidden pop out boxes - Other-->
+            <div id="other-pop-out" class="footer-pop-out-box other-pop-out-box">
+                <div class="clearfix">
+                    <h2>ABOUT SONGJOT</h2>
+                    <div class="footer-pop-out-box-content clearfix">
+                        <p>Songjot aggregates songs posted to <strong><a href="http://subjot.com">Subjot's</a> <em><a href="http://subjot.com/all/song+of+the+day">song of the day</a></em></strong> subject into a daily YouTube playlist.</p>
+
+                        <div class="break-line"></div>
+
+<p>If you like Songjot, <strong><a href="http://subjot.com/Noah">say hi!</a></strong></p>
+						                        <div class="break-line"></div>
+						<p>Photo credits: <strong><a href="http://gallery.artofgregmartin.com/">Greg Martin</a></strong><br />
+												Font credits: <strong><a href="http://fontstruct.com/fontstructions/show/531981">Scott Byrne</a></strong></p>
+
+                        
+
+
+                      </div>
+                 </div>
+            </div>
+
+      </div>
+      <!--End Footers Left Column-->
+
+      <!--Footers Right Column-->
+      <div class="foot-right-col">
+        <div class="copy-info">
+          
+        </div>
+      </div>
+      <!--End Footers Right Column-->
+
+    </div>
+  </div><!-- End Footer -->
+
+</div><!--End Outside-->

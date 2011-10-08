@@ -1,0 +1,45 @@
+.iphorm-inner .input-wrapper select {
+	color: #000;
+	background-color: transparent;
+}
+.iphorm-inner .submit-button-input-wrapper input {
+	border: none;
+	outline: none 0;
+	margin: 0;
+}
+.iphorm-inner .submit-button-input-wrapper input, .news-letter-wrap .button-wrap input  {
+	border: none;
+	outline: none 0;
+	margin: 0;
+}
+.iphorm-inner .submit-button-input-wrapper input:hover {
+	border: none;
+	outline: none 0;
+	margin: 0;
+}
+
+.iphorm-inner .submit-button-input-wrapper span, .news-letter-wrap .button-wrap span   {
+	width: 90px;
+	height: 26px;
+	display: block;
+	float: right;
+	border: 1px solid #000;
+	border:outset 0 #000;
+	margin-right: 20px;
+}
+.news-letter-wrap .button-wrap span {float: left;}
+body.dark .iphorm-inner .submit-button-input-wrapper span, body.dark .news-letter-wrap .button-wrap span {
+	border: 1px solid #000;
+	border:outset 0 #000; 
+}
+body.light .iphorm-inner .submit-button-input-wrapper span, body.light .news-letter-wrap .button-wrap span {
+	border: 1px solid #9d9d9e;
+	border:outset 0 #9d9d9e;
+}
+
+#header-inner {
+	z-index: 1200;
+}
+#horz-nav-ul ul li a:hover, #horz-nav-ul ul li a ul a:hover,
+#horz-nav-ul ul li span:hover, #horz-nav-ul ul li a ul span:hover {
+}
