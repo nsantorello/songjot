@@ -1,8 +1,19 @@
+<script type="text/javascript">
+function setPlaylist(playlist_id, playlist_name)
+{
+	jQuery("#playlist-name").text(playlist_name);
+	jQuery("#video").html('<object height="385" width="480">' +
+	      '<param name="movie" value="http://www.youtube.com/p/' + playlist_id + '?version=3&hl=en_US&fs=1">' +
+	'</param>		<param name="allowFullScreen" value="true">		</param>		<param name="allowscriptaccess" value="always">		</param>' +
+	'<embed src="http://www.youtube.com/p/' + playlist_id + '?version=3&hl=en_US&fs=1" type="application/x-shockwave-flash" width="480" height="385" allowscriptaccess="always" allowfullscreen="true"></embed>		    </object>');
+}
+</script>
+
 <div id="img-overlay-effects" class="none"></div>
 <!--Effects to go over your BG image (class= dots / stripe / square / none) -->
 
 <div id="nojs-background">
-    <img src="images/backgrounds/placeholder.jpg" alt="" /><!-- Non-JavaScript background -->
+    <img src="images/backgrounds/druidTree.jpg" alt="" /><!-- Non-JavaScript background -->
 </div>
 
 <!--Start Outside-->
@@ -32,7 +43,7 @@
         <!--All Tabs-->
 <div class="tabs-wrapper clearfix">
         	<div id="not-tabs">
-                   <h1 style="padding-top:15px;margin-top:0px;">Today's Playlist</h1>
+                   <h1 style="padding-top:15px;margin-top:0px;" id="playlist-name">Today's Playlist</h1>
 				   <div id="video">
                    	<object height="385" width="480">
 					      <param name="movie" value="http://www.youtube.com/p/<%= lists.first.yt_id %>?version=3&hl=en_US&fs=1">
@@ -78,10 +89,10 @@
                     <h2>PLAYLISTS</h2>
 <div class="footer-pop-out-box-content clearfix">
 					<ul style="font-size:10pt">
-						<li><a href="#">Today - <%= pluralize(lists.first.songs.count, "song")%></a> <a href="http://www.youtube.com/playlist?list=<%=lists.first.yt_id%>">(yt)</a></li>
+						<li><a href="javascript:setPlaylist('<%= lists.first.yt_id %>', 'Today\'s Playlist')">Today - <%= pluralize(lists.first.songs.count, "song")%></a> <a href="http://www.youtube.com/playlist?list=<%=lists.first.yt_id%>">(yt)</a></li>
 						<% old_lists = lists.drop(1).first(7)
 						old_lists.each do |list| %>
-							<li><%= Date.parse(list.name).strftime("%a %b %d %Y") %> - <%= pluralize(list.songs.count, "song")%> <a href="http://www.youtube.com/playlist?list=<%=list.yt_id%>">(yt)</a></li>
+							<li><a href="javascript:setPlaylist('<%= list.yt_id %>', '<%=Date.parse(list.name).strftime("%a %b %d %Y") %>')"><%= Date.parse(list.name).strftime("%a %b %d %Y") %> - <%= pluralize(list.songs.count, "song")%></a> <a href="http://www.youtube.com/playlist?list=<%=list.yt_id%>">(yt)</a></li>
 						<% end %>
 						<li><a href="http://www.youtube.com/user/songjot#g/p">See all lists</a></li>
 					</ul>
