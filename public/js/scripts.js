@@ -87,7 +87,7 @@
 		});	
 		
 		// Footer pop out boxes
-		$('.footer-pop-out-trigger', '#footer').click(function () {
+		$('.footer-pop-out-trigger', '#allstuff').click(function () {
 			var $trigger = $(this);
 			var $allBoxes = $('.footer-pop-out-box', '#footer');
 			if ($allBoxes.is(':animated')) {
