@@ -45,6 +45,9 @@ function setPlaylist(playlist_id, playlist_name)
         	<div id="not-tabs">
                    <h1 style="padding-top:15px;margin-top:0px;" id="playlist-name">Today's Playlist</h1>
 				   <div id="video">
+					<% if lists.first.count == 0 %>
+						<h1>No videos posted yet!  <a class="footer-pop-out-trigger" title="Show / Hide" id="pop-out-trigger-older" href="#">Try another playlist.</a></h1>
+					<% else %>
                    	<object height="385" width="480">
 					      <param name="movie" value="http://www.youtube.com/p/<%= lists.first.yt_id %>?version=3&hl=en_US&fs=1">
 					</param>
@@ -54,6 +57,7 @@ function setPlaylist(playlist_id, playlist_name)
 					</param>
 					<embed src="http://www.youtube.com/p/<%= lists.first.yt_id %>?version=3&hl=en_US&fs=1" type="application/x-shockwave-flash" width="480" height="385" allowscriptaccess="always" allowfullscreen="true"></embed>
 					    </object>
+					<% end %>
                    </div><!-- /#video-->
 				</div><!--tabs ID-->
         </div><!--tabs wrapper-->
