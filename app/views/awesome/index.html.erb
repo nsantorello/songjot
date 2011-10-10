@@ -45,7 +45,7 @@ function setPlaylist(playlist_id, playlist_name)
         	<div id="not-tabs">
                    <h1 style="padding-top:15px;margin-top:0px;" id="playlist-name">Today's Playlist</h1>
 				   <div id="video">
-					<% if lists.first.count == 0 %>
+					<% if lists.first.songs.count == 0 %>
 						<h1>No videos posted yet!  <a class="footer-pop-out-trigger" title="Show / Hide" id="pop-out-trigger-older" href="#">Try another playlist.</a></h1>
 					<% else %>
                    	<object height="385" width="480">
